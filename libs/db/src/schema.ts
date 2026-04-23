@@ -188,7 +188,7 @@ export const apiKey = pgTable(
 );
 
 // Email System Enums
-export const emailProviderEnum = pgEnum("email_provider", ["gmail", "outlook", "imap"]);
+export const emailProviderEnum = pgEnum("email_provider", ["gmail", "outlook", "imap", "smtp"]);
 export const emailAccountStatusEnum = pgEnum("email_account_status", ["connected", "disconnected", "error"]);
 export const emailQueueStatusEnum = pgEnum("email_queue_status", ["pending", "processing", "sent", "failed", "bounced"]);
 export const emailEventTypeEnum = pgEnum("email_event_type", ["sent", "opened", "clicked", "replied", "bounced", "unsubscribed"]);
@@ -209,6 +209,12 @@ export const emailAccount = pgTable (
     encryptedRefreshToken: text("encrypted_refresh_token"),
     tokenExpiresAt: timestamp("token_expires_at"),
     scopes: text("scopes"),
+    // SMTP-specific fields
+    smtpHost: text("smtp_host"),
+    smtpPort: integer("smtp_port"),
+    smtpUsername: text("smtp_username"),
+    encryptedSmtpPassword: text("encrypted_smtp_password"),
+    smtpSecure: boolean("smtp_secure").default(true),
     status: emailAccountStatusEnum("status").notNull().default("connected"),
     dailyQuota: integer("daily_quota").notNull().default(500), // Standard Gmail default
     quotaUsedToday: integer("quota_used_today").notNull().default(0),

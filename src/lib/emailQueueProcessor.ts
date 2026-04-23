@@ -7,7 +7,7 @@ import {
   getEmailAccountById,
   isEmailUnsubscribed,
 } from '@coldflow/db';
-import { sendEmail, hasAvailableQuota } from './gmailService';
+import { sendEmail, hasAvailableQuota } from './emailService';
 import { nanoid } from 'nanoid';
 
 /**

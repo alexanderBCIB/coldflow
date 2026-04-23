@@ -17,11 +17,11 @@ const AUTH_TAG_LENGTH = 16; // 128 bits
  * @throws Error if GMAIL_ENCRYPTION_KEY is not configured
  */
 function getEncryptionKey(): Buffer {
-  const key = process.env.GMAIL_ENCRYPTION_KEY;
+  const key = process.env.EMAIL_ENCRYPTION_KEY || process.env.GMAIL_ENCRYPTION_KEY;
 
   if (!key) {
     throw new Error(
-      'GMAIL_ENCRYPTION_KEY is not configured. Generate one with: ' +
+      'EMAIL_ENCRYPTION_KEY is not configured. Generate one with: ' +
       'node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'base64\'))"'
     );
   }

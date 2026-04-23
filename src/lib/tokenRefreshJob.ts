@@ -46,6 +46,12 @@ export async function refreshExpiringTokens(): Promise<RefreshResult> {
     // This ensures one failure doesn't block others
     const refreshPromises = accounts.map(async (account) => {
       try {
+        // Skip non-Gmail accounts (SMTP accounts don't use OAuth tokens)
+        if (account.provider !== 'gmail') {
+          console.log(`Skipping token refresh for non-Gmail account: ${account.email} (${account.provider})`);
+          return;
+        }
+
         if (!account.encryptedRefreshToken) {
           throw new Error('No refresh token available');
         }
