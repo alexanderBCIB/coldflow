@@ -75,7 +75,7 @@ export default buildConfig({
     }),
     // storage-adapter-placeholder
   ],
-  secret: process.env.PAYLOAD_SECRET,
+  secret: process.env.PAYLOAD_SECRET || 'build-time-placeholder-secret-replaced-at-runtime',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
